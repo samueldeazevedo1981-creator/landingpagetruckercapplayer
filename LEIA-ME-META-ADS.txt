@@ -1,0 +1,81 @@
+TRUCKER CAP PLAYER R67 - PIXEL META DEFINITIVO
+
+Pixel ID: 940045260820970
+Produto: Trucker Cap Player
+Valor: R$67,00
+Moeda: BRL
+
+Eventos implementados:
+- PageView
+- ViewContent
+- Tempo30
+- Tempo60
+- Tempo120
+- Scroll25
+- Scroll50
+- Scroll75
+- Scroll90
+- BuyButtonClick
+- CalculatorBuyIntent
+- UpsellView
+- InitiateCheckout
+- WhatsAppClick
+- VideoStart
+- Video25
+- Video50
+- Video75
+- Video95
+
+Também incluído:
+- UTMs persistidas em localStorage
+- fbclid
+- _fbp
+- _fbc
+- parâmetros enviados para links da Eduzz
+- eventID para deduplicação futura com CAPI
+- content_name, content_category, content_type, content_ids, value e currency
+- comentários de external_id / EMQ
+- comentários para GTM, GA4 e Microsoft Clarity
+
+Observação importante:
+IPv6 não é configurado manualmente no HTML. O navegador/servidor e a Meta coletam IP automaticamente quando disponível. Para subir ainda mais a nota, o próximo passo real é ativar API de Conversões (CAPI) junto com o mesmo event_id.
+
+
+
+==============================
+ATUALIZAÇÃO EMQ + PURCHASE
+==============================
+
+Esta versão inclui:
+
+1. Data Layer no <head>:
+   window.truckerCapUserData
+   - external_id: 'EXTERNAL_ID_PLACEHOLDER'
+   - em: ''  (opcional: e-mail com hash SHA-256)
+   - ph: ''  (opcional: telefone com hash SHA-256)
+
+2. Pixel Meta inicializado com Advanced Matching:
+   fbq('init', '940045260820970', tcAdvancedMatching);
+
+3. InitiateCheckout:
+   Dispara nos links do checkout Eduzz e inclui:
+   - content_name: Trucker Cap Player
+   - value: 67.00
+   - currency: BRL
+   - content_type: product
+   - external_id
+
+4. Purchase:
+   Foi criada a função:
+   window.tcTrackPurchase();
+
+   Use APENAS em página de obrigado/confirmação de compra para evitar duplicidade.
+   Também é possível disparar automaticamente usando:
+   ?tc_purchase=1
+
+   Exemplo:
+   https://seusite.com/obrigado.html?tc_purchase=1&external_id=ID_DO_CLIENTE
+
+IMPORTANTE:
+Se a Eduzz já dispara Purchase no checkout, não dispare Purchase também na landing page.
+Para subir mais a nota da Meta, o ideal é configurar CAPI/API de Conversões com o mesmo external_id e eventID.
